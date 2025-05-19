@@ -29,4 +29,21 @@ router.get('/:wishletId', async (req, res) => {
     }
 })
 
+router.delete('/:wishletId', async (req, res) => {
+    try {
+        const deletedWishlet = await Wishlet.findByIdAndDelete(req.params.wishletId)
+        if(!deletedWishlet) {
+            res.status(404)
+            throw new Error('Pet not found.')
+        }
+        res.status(200).json(deletedWishlet)
+    } catch (error) {
+        if (res.statusCode === 404) {
+            res.json({ error: error.message})
+        } else {
+            res.status(500).json({ error: error.message })
+        }
+    }
+})
+
 module.exports = router
