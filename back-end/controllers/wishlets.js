@@ -13,6 +13,31 @@ router.post('/', async (req, res) => {
     
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const foundWishlets = await Wishlet.find();
+        res.status(200).json(foundWishlets);
+    }   catch(err) {
+        res.status(500).json({ err: err.message});
+    }
+});
+
+router.put('/:wishletId', async (req, res) => {
+    try {
+        const updatedWishlet = await Wishlet.findByIdAndUpdate(req.params.wishletId, req.body, { new: true });
+        if (!updatedWishlet) {
+            return res.status(404).json({ err: 'Wishlet not found.' });
+        }
+        res.status(200).json(updatedWishlet);
+    } catch (err) {
+        if (res.statusCode === 404) {
+          res.json({ err: err.message});
+        } else {
+          res.status(500).json({ err: err.message});
+        }
+    }
+});
+
 
 
 module.exports = router;
