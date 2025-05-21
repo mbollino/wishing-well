@@ -13,7 +13,7 @@ const wishingWell = ({ wishlets }) => {
                 <h1>Wishing Well</h1>
                 <div>
                     <ul>
-                        {props.wislets.map((wishlet) => (
+                        {props.wishlets.map((wishlet) => (
                             <li key={wishlet.id}>{wishlet.wishletTitle}</li>
                         ))}
                     </ul>

@@ -46,4 +46,27 @@ router.delete('/:wishletId', async (req, res) => {
     }
 })
 
+router.put('/:wishletId', async (req, res) => {
+    try {
+        const updateData = req.body
+        if (updateDate.wishletIsCompleted && updateData.reflection) {
+            updateData.reflection.completedDate = new Date()
+        }
+        const updatedWishlet = await Wishlet.findByIdAndUpdate(req.params.wishletId, req.body, { new: true });
+        if (!updatedWishlet) {
+           res.status(404)
+           throw new Error('Wishlet not found.');
+        }
+        res.status(200).json(updatedWishlet);
+    } catch (err) {
+        if (res.statusCode === 404) {
+          res.json({ err: err.message});
+        } else {
+          res.status(500).json({ err: err.message});
+        }
+    }
+});
+
+
+
 module.exports = router
