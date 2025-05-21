@@ -28,28 +28,26 @@ const wishletSchema = mongoose.Schema({
 
 });
 
-// const UserSchema = new mongoose.Schema({
-//     userName: {
-//        type: String,
-//        required: true, 
-//     },
+const UserSchema = new mongoose.Schema({
+    userName: {
+       type: String,
+       required: true, 
+    },
 
-//     email: {
-//         type: String,
-//         required: true,
-//     },
+    email: {
+        type: String,
+        required: true,
+    },
 
-//     password: {
-//         type: String,
-//         required: true,
-//     },
+    password: {
+        type: String,
+        required: true,
+    },
 
-//     wishlets: [wishletSchema],
+    wishlets: [wishletSchema],
 
-// });
+});
 
-// const User = mongoose.model("User", UserSchema);
-
-const wishlet = mongoose.model("wishlet", wishletSchema);
+const User = mongoose.model("User", UserSchema);
   
-module.exports = wishlet
+module.exports = User

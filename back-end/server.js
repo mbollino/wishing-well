@@ -3,6 +3,7 @@ dotenv.config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 const logger = require('morgan');
 const port = process.env.PORT || 3000;
 
@@ -16,8 +17,7 @@ mongoose.connection.on('connected', () => {
 
 app.use(express.json());
 app.use(logger('dev'));
-
-// Routes go here
+app.use(cors());
 
 app.use('/wishlets', wishletRouter);
 

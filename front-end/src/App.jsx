@@ -1,7 +1,7 @@
 import './App.css'
 import { useState, useEffect } from 'react';
 import * as wishletService from './services/wishletService'
-import WishletsWell from './components/WishletsWell/WishletsWell';
+import WishingWell from './components/WishingWell/WishingWell';
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-      <WishletsWell wishlets={wishlets} />
+      <WishingWell wishlets={wishlets} />
     </>
   )
 }
