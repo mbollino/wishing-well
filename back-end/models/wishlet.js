@@ -2,27 +2,27 @@ const mongoose = require('mongoose');
 
 const wishletSchema = mongoose.Schema({
     
-    wishletTitle: {
+    Title: {
         type: String,
         required: true,
    
     },
-    wishletDescription: {
+    Description: {
         type: String,
         required: true,
     
     },
-    wishletCategory: {
+    Category: {
         type: String,
         required: true,
         enum: ["Travel", "Growth", "Adventure", "Charity", "Culture", "Education", "Family", "Career", "Personal", "Miscellaneous"]
         
     },
-    wishletIsCompleted: {
+    IsCompleted: {
         type: Boolean,
     },
 
-    wishletTargetDate: {
+    TargetDate: {
         type: Date,
     }
 
