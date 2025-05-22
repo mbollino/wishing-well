@@ -5,7 +5,7 @@ const reflectionSchema = mongoose.Schema({
     notes: {
         type: String,
         required: true,
-    }
+    },
     completedDate: {
         type: Date,
         required: true,
