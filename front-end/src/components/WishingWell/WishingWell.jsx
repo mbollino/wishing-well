@@ -21,7 +21,7 @@ const wishingWell = ({ props }) => {
                     )}
                 </div>
                 <button onClick={props.handleFormView}>
-                    {prop.isFormOpen ? 'Close Form' : 'Add a Wishlet'}
+                    {prop.isFormOpen ? 'Close Form' : 'Make a New Wishlet'}
                 </button>
             </div>
         </>

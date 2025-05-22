@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ReflectionsForm from '../ReflectionsForm/ReflectionsForm';
 
 const WishletForm = ({ props }) => {
     const initialState = {
@@ -13,13 +14,30 @@ const WishletForm = ({ props }) => {
         props.selected ? props.selected : initialState
     )
 
-    const handleChagne = (evt) => {
-        setFormData({ ...formData, [evt.target.wishletDescription]: evt.target.value })
-    }
+    const [showReflectionsForm, setShowReflectionsForm] = useState(false)
+
+    const handleChange = (evt) => {
+        const { name, value, type, checked } = evt.target;
+        setFormData({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : value,
+        });
+    };
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
-        props.handleAddWishlet(formData)
+        if (props.selected && formData.wishletIsCompleted) {
+            setShowReflectionsForm(true)
+        } else if (props.selected) {
+            props.handleUpdateWishlet(formData, props.selected._id)
+        } else {
+            props.handleAddWishlet(formData)
+        }
+    }
+
+    const handleSaveReflection = (reflection) => {
+        const dataWithReflection = { ...formData, refelction }
+        props.handleUpdateWishlet(dataWithReflection, props.selected._id)
     }
 
     return (
@@ -33,7 +51,7 @@ const WishletForm = ({ props }) => {
                     value={formData.wishletTitle}
                     onChange={handleChange}
                 />
-                <label htmlFor="wishletDescription">Wishlet Description</label>
+                <label htmlFor="wishletDescription">Description</label>
                 <input
                     id="wishletDescription"
                     type="text"
@@ -41,7 +59,7 @@ const WishletForm = ({ props }) => {
                     value={formData.wishletDescription}
                     onChange={handleChange}
                 />
-                <label htmlFor="wishletCategory">Wishlet Category</label>
+                <label htmlFor="wishletCategory">Category</label>
                 <select
                     id="wishletCategory"
                     name="wishletCategory"
@@ -60,7 +78,7 @@ const WishletForm = ({ props }) => {
                     <option value="Personal">Personal</option>
                     <option value="Miscellaneous">Miscellaneous</option>
                 </select>
-                <label htmlFor="wishletIsCompleted">Wishlet Completed?</label>
+                <label htmlFor="wishletIsCompleted">Wish Completed?</label>
                 <input
                     id="wishletIsCompleted"
                     type="checkbox"
@@ -76,7 +94,16 @@ const WishletForm = ({ props }) => {
                     value={formData.wishletTargetDate}
                     onChange={handleChange}
                 />
+                <button type="submit">
+                    {props.selected ? 'Update Wish' : 'Make a New Wish'}
+                </button>
             </form>
+            {showReflectionsForm && (
+                <ReflectionsForm
+                    onSave={handleSaveReflection}
+                    onClose={() => setShowReflectionsForm(false)}
+                />
+            )}
         </div>
     )
 }

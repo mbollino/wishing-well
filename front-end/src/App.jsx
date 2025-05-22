@@ -39,11 +39,28 @@ function App() {
     }
   }
 
+  const handleUpdateWishlet = async (formData, wishletId) => {
+    try {
+      const updatedWishlet = await wishletService.update(formData, wishletId)
+      if (updatedWishlet.err) {
+        throw new Error(updatedWishlet.err)
+      }
+      const updatedWishingWell = wishlets.map((wishlet) => (
+        wishlet._id !== updatedWishlet._id ? wishlet : updatedWishlet
+      ));
+      setWishlets(updatedWishingWell);
+      setSelected(updatedWishlet);
+      setIsFormOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
-      <WishingWell wishlets={wishlets} handleSelect={handleSelect} handleFormView={handleFormView} isFormOpen={isFormOpen}/>
+      <WishingWell wishlets={wishlets} handleSelect={handleSelect} handleFormView={handleFormView} isFormOpen={isFormOpen} />
       {isFormOpen ? (
-        <WishletForm handleAddWishlet={handleAddWishlet} selected={selected} />
+        <WishletForm handleAddWishlet={handleAddWishlet} selected={selected} handleUpdateWishlet={handleUpdateWishlet} />
       ) : (
         <WishletDetail selected={selected} handleFormView={handleFormView} />
       )}

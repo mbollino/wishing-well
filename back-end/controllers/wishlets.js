@@ -49,10 +49,10 @@ router.delete('/:wishletId', async (req, res) => {
 router.put('/:wishletId', async (req, res) => {
     try {
         const updateData = req.body
-        if (updateDate.wishletIsCompleted && updateData.reflection) {
+        if (updateData.wishletIsCompleted && updateData.reflection) {
             updateData.reflection.completedDate = new Date()
         }
-        const updatedWishlet = await Wishlet.findByIdAndUpdate(req.params.wishletId, req.body, { new: true });
+        const updatedWishlet = await Wishlet.findByIdAndUpdate(req.params.wishletId, updateData, { new: true });
         if (!updatedWishlet) {
            res.status(404)
            throw new Error('Wishlet not found.');

@@ -33,7 +33,7 @@ const wishletSchema = mongoose.Schema({
     wishletTargetDate: {
         type: Date,
     },
-    reflection: [reflectionSchema],
+    reflection: reflectionSchema,
 });
 
 const UserSchema = new mongoose.Schema({
