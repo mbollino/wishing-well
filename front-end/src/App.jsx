@@ -1,15 +1,20 @@
+import { useContext } from 'react';
 import { Routes, Route } from 'react-router'; 
 import NavBar from './components/NavBar/NavBar';
+import Landing from './components/Landing/Landing';
+import Dashboard from './components/Dashboard/Dashboard';
+import { UserContext } from './contexts/UserContext';
 import SignUpForm from './components/SignUpForm/SignUpForm';
+import SignInForm from './components/SignInForm/SignInForm';
 import { useState, useEffect } from 'react';
 import * as wishletService from './services/wishletService';
 import WishletDetail from './components/WishletDetail/WishletDetail';
 import './App.css';
 
 const App = () => {
-  const [wishlets, setWishlets] = useState ([]);
-  const [selected, setSelected] = useState ([null]);
-
+  const [wishlets, setWishlets] = useState([]);
+  const [selected, setSelected] = useState([null]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchWishlets = async () => {
@@ -26,15 +31,22 @@ const App = () => {
     fetchWishlets();
   }, []);
 
-  // const handleSelect = (wishlet) => {
-  //   setSelected(wishlet);
-  // }
 
+const handleDeleteWishlet = async (wishletId) => {
+  try {
+    const deletedWishlet = await wishletService.delete(wishletId);
 
-  // const handleFormView = (wishlet) => {
-  //   if (!wishlet._id) setSelected(null)
-  //   setIsFormOpen(!isFormOpen)
-  // }
+    if (deletedWishlet.err) {
+      throw new Error(deletedWishlet.err);
+    }
+
+    setWishlets(wishlets.filter((pet) => pet._id !== deletedWishlet._id));
+      setSelected(null);
+      setIsFormOpen(false);
+    } catch (err) {
+      console.log(err);
+  }
+}
 
 
 
@@ -42,13 +54,15 @@ const App = () => {
     <>
     <NavBar />
     <Routes>
+        <Route path='/' element={user ? <Dashboard /> : <Landing /> } />  
         <Route path='/sign-up' element={<SignUpForm />} />
+        <Route path="/sign-in" element={<SignInForm />} />
     </Routes>
     <h1> Hello, friend!</h1>
-    <WishletDetail selected = {selected} />
+    <WishletDetail selected={selected} handleFormView={handleFormView} handleDeleteWishlet={handleDeleteWishlet} />
     </>
   )
-
+ 
 };
 
 export default App

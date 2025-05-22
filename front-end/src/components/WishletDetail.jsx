@@ -12,11 +12,11 @@ const WishletDetail = (props) => {
         <>
         <h2>Wishlet Details</h2>
         <ul> 
-            <li>Title: {props.selected.title} </li>
-            <li>Description: {props.selected.description} </li>
-            <li>Category: {props.selected.category} </li>
-            <li>IsCompleted: {props.selected.iscompleted} </li>
-            <li>TargetDate: {props.selected.targetdate} </li>
+            <li>wishletTitle: {props.selected.wishletTitle} </li>
+            <li>wishletDescription: {props.selected.wishletDescription} </li>
+            <li>wishletCategory: {props.selected.wishletCategory} </li>
+            <li>wishletIsCompleted: {props.selected.wishletIsCompleted} </li>
+            <li>wishletTargetDate: {props.selected.wishletTargetDate} </li>
         </ul>
         <button onClick={() => props.handleFormView(props.selected)}> 
         Edit Wishlet    
