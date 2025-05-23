@@ -6,8 +6,8 @@ const deletePet = async (wishletId) => {
         method: 'DELETE',
       });
       return res.json();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error)
     }
   };
 
