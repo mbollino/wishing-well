@@ -18,13 +18,12 @@ router.post("/sign-up", async (req, res) => {
 
     const user = await User.create({
       userName: req.body.userName,
-      email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, saltRounds),
+      hashedPassword: bcrypt.hashSync(req.body.password, saltRounds),
     });
 
     const payload = { userName: user.userName, _id: user._id };
 
-    const token = jwt.sign({ payload }, process.env.JWT_SECRET);
+    const token = jwt.sign(payload , process.env.JWT_SECRET);
 
     res.status(201).json({ token });
   } catch (err) {
@@ -41,7 +40,7 @@ router.post("/sign-in", async (req, res) => {
 
     const isPasswordCorrect = bcrypt.compareSync(
       req.body.password,
-      user.password
+      user.hashedPassword
     );
 
     if (!isPasswordCorrect) {
@@ -50,7 +49,7 @@ router.post("/sign-in", async (req, res) => {
 
     const payload = { userName: user.userName, _id: user._id };
 
-    const token = jwt.sign({ payload }, process.env.JWT_SECRET);
+    const token = jwt.sign( payload , process.env.JWT_SECRET);
 
     res.status(200).json({ token });
   } catch (err) {

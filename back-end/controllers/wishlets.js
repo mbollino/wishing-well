@@ -1,48 +1,3 @@
-<<<<<<< HEAD
-const Wishlet = require('../models/wishlet')
-const express = require ('express')
-const router = express.Router();
-
-
-router.post('/', async (req, res) => {
-    try {
-        const createdWishlet = await Wishlet.create(req.body)
-        res.status(201).json(createdWishlet)
-    } catch (err) {
-        res.status(500).json({err: err.message});
-    }
-    
-});
-
-router.get('/', async (req, res) => {
-    try {
-        const foundWishlets = await Wishlet.find();
-        res.status(200).json(foundWishlets);
-    }   catch(err) {
-        res.status(500).json({ err: err.message});
-    }
-});
-
-router.put('/:wishletId', async (req, res) => {
-    try {
-        const updatedWishlet = await Wishlet.findByIdAndUpdate(req.params.wishletId, req.body, { new: true });
-        if (!updatedWishlet) {
-            return res.status(404).json({ err: 'Wishlet not found.' });
-        }
-        res.status(200).json(updatedWishlet);
-    } catch (err) {
-        if (res.statusCode === 404) {
-          res.json({ err: err.message});
-        } else {
-          res.status(500).json({ err: err.message});
-        }
-    }
-});
-
-
-
-module.exports = router;
-=======
 const Wishlet = require("../models/wishlet");
 const express = require("express");
 const router = express.Router();
@@ -50,14 +5,25 @@ const verifyToken = require("../middleware/verify-token");
 
 router.post("/", verifyToken, async (req, res) => {
   try {
-    const createdWishlet = await Wishlet.create(req.body);
+    const createdWishlet = await Wishlet.create({
+      ...req.body,
+    user: req.user._id
+  });
     res.status(201).json(createdWishlet);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
 });
 
-//show
+router.get("/", verifyToken, async (req, res) => {
+  try {
+    const foundWishlets = await Wishlet.find({ user: req.user_id });
+    res.status(200).json(foundWishlets);
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+});
+
 router.get("/:wishletId", verifyToken, async (req, res) => {
   try {
     const foundWishlet = await Wishlet.findById(req.params.wishletId);
@@ -120,4 +86,3 @@ router.put("/:wishletId", verifyToken, async (req, res) => {
 });
 
 module.exports = router;
->>>>>>> a74565279f7499b92da32e671bd06eb4850f94cd

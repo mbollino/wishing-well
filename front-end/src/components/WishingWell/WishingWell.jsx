@@ -1,9 +1,10 @@
-const wishingWell = ({ props }) => {
+const wishingWell = ( props ) => {
 
     return (
         <>
             <div>
                 <h1>Wishing Well</h1>
+                <p>{props.userName}'s Wishes</p>
                 <div>
                     {!props.wishlets.length ? (
                         <h2>No wishes yet!</h2>
@@ -12,7 +13,7 @@ const wishingWell = ({ props }) => {
                             {props.wishlets.map((wishlet) =>
                                 <li key={wishlet._id}
                                     style={{ cursor: 'pointer', color: '#232326' }}
-                                    onClick={() => props.handeSelect(pet)}
+                                    onClick={() => props.handeSelect(wishlet)}
                                 >
                                     {wishlet.wishletTitle}
                                 </li>
@@ -21,7 +22,7 @@ const wishingWell = ({ props }) => {
                     )}
                 </div>
                 <button onClick={props.handleFormView}>
-                    {prop.isFormOpen ? 'Close Form' : 'Make a New Wishlet'}
+                    {props.isFormOpen ? 'Close Form' : 'Make a New Wishlet'}
                 </button>
             </div>
         </>

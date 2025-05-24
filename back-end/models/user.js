@@ -6,19 +6,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
+  hashedPassword: {
     type: String,
     required: true,
   },
 });
 
-UserSchema.set('toJson', {
+UserSchema.set('toJSON', {
     transform: (document, returnedObject) => {
-        delete returnedObject.password
+        delete returnedObject.hashedPassword
     }
 })
 

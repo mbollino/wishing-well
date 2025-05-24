@@ -1,9 +1,9 @@
 const Landing = () => {
   return (
-    <main>
-      <h1>Hello, you are on the landing page for visitors.</h1>
-      <p>Sign up now, or sign in to see your super secret dashboard!</p>
-    </main>
+    <div>
+      <h1>Wishing Well</h1>
+      <h3>Your bucket list, amplified</h3>
+    </div>
   );
 };
 

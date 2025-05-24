@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-const ReflectionsForm = ({ props }) => {
+const ReflectionsForm = ({ onSave, onClose }) => {
     const [notes, setNotes] = useState('')
 
     const handleSubmit = (evt) => {
-        e.preventDefault()
+        evt.preventDefault()
         onSave({
             notes,
-            completedDate: newDate(),
+            completedDate: new Date(),
         }),
             onClose()
     }
