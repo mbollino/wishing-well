@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
-import { signUp } from '../../services/authService';
+import { signUp } from '../../services/authServices';
 import { UserContext } from '../../contexts/UserContext';
 
 const SignUpForm = () => {
@@ -8,12 +8,12 @@ const SignUpForm = () => {
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    username: '',
+    userName: '',
     password: '',
     passwordConf: '',
   });
 
-  const { username, password, passwordConf } = formData;
+  const { userName, password, passwordConf } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -21,7 +21,7 @@ const SignUpForm = () => {
   };
 
   const handleSubmit = async (evt) => {
-evt.preventDefault();
+    evt.preventDefault();
     try {
       const newUser = await signUp(formData);
       setUser(newUser);
@@ -33,7 +33,7 @@ evt.preventDefault();
 
 
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    return !(userName && password && password === passwordConf);
   };
 
   return (
@@ -42,12 +42,12 @@ evt.preventDefault();
       <p>{message}</p>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='username'>Username:</label>
+          <label htmlFor='userName'>Username:</label>
           <input
             type='text'
             id='name'
-            value={username}
-            name='username'
+            value={userName}
+            name='userName'
             onChange={handleChange}
             required
           />

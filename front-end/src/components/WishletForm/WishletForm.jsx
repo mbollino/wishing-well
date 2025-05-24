@@ -36,7 +36,7 @@ const WishletForm = ({ props }) => {
     }
 
     const handleSaveReflection = (reflection) => {
-        const dataWithReflection = { ...formData, refelction }
+        const dataWithReflection = { ...formData, reflection }
         props.handleUpdateWishlet(dataWithReflection, props.selected._id)
     }
 

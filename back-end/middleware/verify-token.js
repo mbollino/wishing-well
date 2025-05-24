@@ -11,6 +11,8 @@ function verifyToken(req, res, next) {
   } catch (err) {
     res.status(401).json({ err: "Invalid token." });
   }
+  console.log("Token:", token)
+  console.log("Decoded:", jwt.decode(token))
 }
 
 module.exports = verifyToken;
