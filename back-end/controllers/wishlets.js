@@ -5,10 +5,7 @@ const verifyToken = require("../middleware/verify-token");
 
 router.post("/", verifyToken, async (req, res) => {
   try {
-    const createdWishlet = await Wishlet.create({
-      ...req.body,
-    user: req.user._id
-  });
+    const createdWishlet = await Wishlet.create(req.body,);
     res.status(201).json(createdWishlet);
   } catch (err) {
     res.status(500).json({ err: err.message });
@@ -17,7 +14,7 @@ router.post("/", verifyToken, async (req, res) => {
 
 router.get("/", verifyToken, async (req, res) => {
   try {
-    const foundWishlets = await Wishlet.find({ user: req.user_id });
+    const foundWishlets = await Wishlet.find();
     res.status(200).json(foundWishlets);
   } catch (err) {
     res.status(500).json({ err: err.message });
@@ -28,7 +25,7 @@ router.get("/:wishletId", verifyToken, async (req, res) => {
   try {
     const foundWishlet = await Wishlet.findById(req.params.wishletId);
     if (!foundWishlet) {
-      return res.status(404);
+      res.status(404);
       throw new Error("Wishlet not found");
     }
     res.status(200).json(foundWishlet);
@@ -48,7 +45,7 @@ router.delete("/:wishletId", verifyToken, async (req, res) => {
     );
     if (!deletedWishlet) {
       res.status(404);
-      throw new Error("Pet not found.");
+      throw new Error("Wishlet not found.");
     }
     res.status(200).json(deletedWishlet);
   } catch (error) {

@@ -10,7 +10,7 @@ const SignInForm = () => {
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    userName: '',
+    username: '',
     password: '',
   });
 
@@ -32,44 +32,41 @@ const SignInForm = () => {
   };
 
   return (
-    <>
-      <main>
-        <h1>Sign In</h1>
-        <p>{message}</p>
-        <form autoComplete='off' onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='userName'>Username:</label>
-            <input
-              type='text'
-              autoComplete='off'
-              id='name'
-              value={formData.userName}
-              name='userName'
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor='password'>Password:</label>
-            <input
-              type='password'
-              autoComplete='off'
-              id='password'
-              value={formData.password}
-              name='password'
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <button>Sign In</button>
-          </div>
-        </form>
-        <button onClick={() => navigate('/')}>Cancel</button>
-      </main>
-    </>
+    <main>
+      <h1>Sign In</h1>
+      <p>{message}</p>
+      <form autoComplete='off' onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor='email'>Username:</label>
+          <input
+            type='text'
+            autoComplete='off'
+            id='username'
+            value={formData.username}
+            name='username'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='password'>Password:</label>
+          <input
+            type='password'
+            autoComplete='off'
+            id='password'
+            value={formData.password}
+            name='password'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <button>Sign In</button>
+          <button onClick={() => navigate('/')}>Cancel</button>
+        </div>
+      </form>
+    </main>
   );
 };
 
 export default SignInForm;
-

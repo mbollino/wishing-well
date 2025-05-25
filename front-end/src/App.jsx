@@ -17,6 +17,8 @@ function App() {
     const [isFormOpen, setIsFormOpen] = useState(false)
     const { user } = useContext(UserContext);
 
+    console.log('UserContext user:', user)
+
     useEffect(() => {
         const fetchWishlets = async () => {
             try {

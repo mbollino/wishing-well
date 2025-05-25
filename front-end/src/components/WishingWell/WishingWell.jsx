@@ -4,7 +4,7 @@ const wishingWell = ( props ) => {
         <>
             <div>
                 <h1>Wishing Well</h1>
-                <p>{props.userName}'s Wishes</p>
+                <p>{props.username}'s Wishes</p>
                 <div>
                     {!props.wishlets.length ? (
                         <h2>No wishes yet!</h2>

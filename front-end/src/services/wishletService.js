@@ -13,8 +13,7 @@ const index = async () => {
     }
     return data;
   } catch (err) {
-    console.log(err);
-    throw new Error(err);
+    console.error(err);
   }
 };
 
@@ -23,8 +22,8 @@ const create = async (formData) => {
     const res = await fetch(BASE_URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     });
@@ -39,8 +38,8 @@ const update = async (formData, wishletId) => {
     const res = await fetch(`${BASE_URL}/${wishletId}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     });

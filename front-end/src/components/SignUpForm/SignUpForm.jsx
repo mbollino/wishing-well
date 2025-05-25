@@ -1,19 +1,20 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
-import { signUp } from '../../services/authServices';
-import { UserContext } from '../../contexts/UserContext';
+import { signUp } from '../../services/authServices'
+
+import { UserContext } from '../../contexts/UserContext'
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext)
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    userName: '',
+    username: '',
     password: '',
     passwordConf: '',
   });
 
-  const { userName, password, passwordConf } = formData;
+  const { username, password, passwordConf } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -23,17 +24,16 @@ const SignUpForm = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      const newUser = await signUp(formData);
-      setUser(newUser);
-      navigate('/');
+        const newUser = await signUp(formData)
+        setUser(newUser)
+        navigate('/')
     } catch (err) {
-      setMessage(err.message);
+        console.log(err)
     }
   };
 
-
   const isFormInvalid = () => {
-    return !(userName && password && password === passwordConf);
+    return !(username && password && password === passwordConf);
   };
 
   return (
@@ -42,12 +42,12 @@ const SignUpForm = () => {
       <p>{message}</p>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='userName'>Username:</label>
+          <label htmlFor='username'>Username:</label>
           <input
             type='text'
             id='name'
-            value={userName}
-            name='userName'
+            value={username}
+            name='username'
             onChange={handleChange}
             required
           />

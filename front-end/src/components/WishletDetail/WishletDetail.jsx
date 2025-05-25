@@ -35,7 +35,7 @@ const WishletDetail = (props) => {
                 <li>Description: {props.selected.wishletDescription} </li>
                 <li>Category: {props.selected.wishletCategory} </li>
                 <li>Completed: {props.selected.wishletIsCompleted ? 'Yes' : 'No'}</li>
-                <li>Target Date: {{ formattedTargetDate } || "N/A" }</li>
+                <li>Target Date: { formattedTargetDate  || "N/A" }</li>
                 {props.selected.reflection && (
                     <>
                         <li><strong>Reflection:</strong></li>

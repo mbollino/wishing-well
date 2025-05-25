@@ -1,23 +1,22 @@
-const mongoose = require("mongoose");
-const { compile } = require("morgan");
+const mongoose = require('mongoose')
 
-const UserSchema = new mongoose.Schema({
-  userName: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+const userSchema = mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+    },
+    hashedPassword: {
+        type: String,
+        required: true
+    },
+})
 
-UserSchema.set('toJSON', {
+userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
-        delete returnedObject.password
+        delete returnedObject.hashedPassword
     }
 })
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', userSchema)
 
-module.exports = User;
+module.exports = User
