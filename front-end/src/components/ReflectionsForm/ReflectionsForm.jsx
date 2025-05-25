@@ -2,12 +2,13 @@ import { useState } from 'react';
 
 const ReflectionsForm = ({ onSave, onClose }) => {
     const [notes, setNotes] = useState('')
+    const[completedDate, setCompletedDate] = useState('')
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
         onSave({
             notes,
-            completedDate: new Date(),
+            completedDate
         }),
             onClose()
     }
@@ -22,8 +23,18 @@ const ReflectionsForm = ({ onSave, onClose }) => {
                         id="notes"
                         name="notes"
                         value={notes}
-                        onChange={(e) => setNotes(e.target.value)}>
+                        onChange={(e) => setNotes(e.target.value)}
+                        required>
                     </textarea>
+                    <label htmlFor="completedDate">Completed Date</label>
+                    <input
+                        id="completedDate"
+                        type="date"
+                        name="completedDate"
+                        value={completedDate}
+                        onChange={(e) => setCompletedDate(e.target.value)}
+                    />
+
                     <button type="submit">Save Reflection</button>
                     <button type="button" onClick={onClose}>Cancel</button>
                 </form>

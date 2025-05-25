@@ -49,3 +49,4 @@ const wishletSchema = mongoose.Schema({
 const Wishlet = mongoose.model("Wishlet", wishletSchema);
 
 module.exports = Wishlet;
+

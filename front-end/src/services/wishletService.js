@@ -2,9 +2,7 @@ const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/wishlets`;
 
 const index = async () => {
   try {
-    const res = await fetch(BASE_URL, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    });
+    const res = await fetch(`${BASE_URL}`);
 
     const data = await res.json();
 
@@ -19,10 +17,9 @@ const index = async () => {
 
 const create = async (formData) => {
   try {
-    const res = await fetch(BASE_URL, {
+    const res = await fetch(`${BASE_URL}`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
@@ -38,7 +35,6 @@ const update = async (formData, wishletId) => {
     const res = await fetch(`${BASE_URL}/${wishletId}`, {
       method: "PUT",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
@@ -53,7 +49,6 @@ const deleteWishlet = async (wishletId) => {
   try {
     const res = await fetch(`${BASE_URL}/${wishletId}`, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
     return res.json();
   } catch (error) {
