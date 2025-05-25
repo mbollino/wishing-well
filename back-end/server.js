@@ -19,12 +19,12 @@ mongoose.connection.on('connected', () => {
 
 app.use(express.json());
 app.use(logger('dev'));
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 
 app.use('/wishlets', wishletRouter);
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
 
 app.listen(port, () => {
-  console.log(`The express app is ready on port ${port}!`);
+  console.log('The express app is ready!');
 });

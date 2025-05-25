@@ -3,12 +3,10 @@ const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middleware/verify-token");
 
+
 router.post("/", verifyToken, async (req, res) => {
   try {
-    const createdWishlet = await Wishlet.create({
-      ...req.body,
-    user: req.user._id
-  });
+    const createdWishlet = await Wishlet.create({...req.body, user: req.user._id});
     res.status(201).json(createdWishlet);
   } catch (err) {
     res.status(500).json({ err: err.message });

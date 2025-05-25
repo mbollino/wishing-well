@@ -6,6 +6,7 @@ import { UserContext } from '../../contexts/UserContext';
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
+console.log(user)
 
   const handleSignOut = () => {
     localStorage.removeItem('token');

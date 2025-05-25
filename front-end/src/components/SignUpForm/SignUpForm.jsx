@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
-import { signUp } from '../../services/authServices';
+import { signUp } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
 
 const SignUpForm = () => {
@@ -13,27 +13,28 @@ const SignUpForm = () => {
     passwordConf: '',
   });
 
-  const { userName, password, passwordConf } = formData;
+  const { username, password, passwordConf } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-    try {
-      const newUser = await signUp(formData);
-      setUser(newUser);
-      navigate('/');
-    } catch (err) {
-      setMessage(err.message);
-    }
-  };
+const handleSubmit = async (evt) => {
+  evt.preventDefault();
+  console.log(formData); 
+  try {
+    const newUser = await signUp(formData);
+    setUser(newUser);
+    navigate('/');
+  } catch (err) {
+    setMessage(err.message);
+  }
+};
 
 
   const isFormInvalid = () => {
-    return !(userName && password && password === passwordConf);
+    return !(username && password && password === passwordConf);
   };
 
   return (
@@ -42,14 +43,15 @@ const SignUpForm = () => {
       <p>{message}</p>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='userName'>Username:</label>
+          <label htmlFor='username'>Username:</label>
           <input
             type='text'
-            id='name'
-            value={userName}
-            name='userName'
+            id='username'
+            value={username}
+            name='username'
             onChange={handleChange}
             required
+            autoComplete="username"
           />
         </div>
         <div>
@@ -61,6 +63,7 @@ const SignUpForm = () => {
             name='password'
             onChange={handleChange}
             required
+            autoComplete="new-password"
           />
         </div>
         <div>
@@ -72,6 +75,7 @@ const SignUpForm = () => {
             name='passwordConf'
             onChange={handleChange}
             required
+             autoComplete="new-password" 
           />
         </div>
         <div>

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router';
 import NavBar from './components/NavBar/NavBar';
-import Landing from './components/Landing/Landing';
+// import Landing from './components/Landing/Landing';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import WishletDetail from './components/WishletDetail/WishletDetail';
@@ -11,26 +11,28 @@ import * as wishletService from './services/wishletService';
 import WishingWell from './components/WishingWell/WishingWell';
 import './App.css';
 
-function App() {
-    const [wishlets, setWishlets] = useState([]);
-    const [selected, setSelected] = useState(null);
-    const [isFormOpen, setIsFormOpen] = useState(false)
-    const { user } = useContext(UserContext);
+const App = () => {
+  const [wishlets, setWishlets] = useState([]);
+  const [selected, setSelected] = useState([null]);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const { user } = useContext(UserContext);
 
-    useEffect(() => {
-        const fetchWishlets = async () => {
-            try {
-                const fetchedWishlets = await wishletService.index();
-                if (fetchedWishlets.err) {
-                    throw new Error(fetchedWishlets.err);
-                }
-                setWishlets(fetchedWishlets);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        fetchWishlets();
-    }, [user]);
+
+     useEffect(() => {
+    const fetchWishlets = async () => {
+        if (!user) return; 
+      try {
+        const fetchedWishlets = await wishletService.index();
+        if (fetchedWishlets.err) {
+          throw new Error(fetchedWishlets.err);
+        }
+        setWishlets(fetchedWishlets);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchWishlets();
+  }, [user]);
 
     const handleSelect = (wishlet) => {
         setSelected(wishlet)
@@ -87,8 +89,8 @@ function App() {
 
     return (
         <>
-            <NavBar />
-            <Routes>
+           <NavBar />
+            <Routes>  
                 <Route path="/" element={
                     user ? (
                         <>
@@ -113,7 +115,7 @@ function App() {
                             )}
                         </>
                     ) : (
-                        <Landing />
+                        <div>Login to see your Wishlets </div>
                     )
                 } />
                 <Route path="/sign-up" element={<SignUpForm />} />

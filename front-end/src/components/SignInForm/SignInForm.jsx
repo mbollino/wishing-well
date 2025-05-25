@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 
-import { signIn } from '../../services/authServices';
+import { signIn } from '../../services/authService';
 
 import { UserContext } from '../../contexts/UserContext';
 
@@ -10,7 +10,7 @@ const SignInForm = () => {
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    userName: '',
+    username: '',
     password: '',
   });
 
@@ -23,13 +23,16 @@ const SignInForm = () => {
     evt.preventDefault();
     try {
       const signedInUser = await signIn(formData);
-
+      console.log(signedInUser)
       setUser(signedInUser);
+      
       navigate('/');
     } catch (err) {
       setMessage(err.message);
     }
   };
+
+
 
   return (
     <>
@@ -38,13 +41,13 @@ const SignInForm = () => {
         <p>{message}</p>
         <form autoComplete='off' onSubmit={handleSubmit}>
           <div>
-            <label htmlFor='userName'>Username:</label>
+            <label htmlFor='username'>username:</label>
             <input
               type='text'
-              autoComplete='off'
-              id='name'
-              value={formData.userName}
-              name='userName'
+              autoComplete="username"
+              id='username'
+              value={formData.username}
+              name='username'
               onChange={handleChange}
               required
             />

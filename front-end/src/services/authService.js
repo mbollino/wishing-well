@@ -6,7 +6,12 @@ const signUp = async (formData) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
+      credentials: 'include',
     });
+
+    if (res.status === 204 || res.headers.get('Content-Length') === '0') {
+      throw new Error('No response body from server');
+    }
 
     const data = await res.json();
 
@@ -16,13 +21,14 @@ const signUp = async (formData) => {
 
     if (data.token) {
       localStorage.setItem('token', data.token);
+      // console.log(JSON.parse(atob(data.token.split('.')[1])).payload)
       return JSON.parse(atob(data.token.split('.')[1])).payload;
     }
 
     throw new Error('Invalid response from server');
   } catch (err) {
     console.log(err);
-    throw new Error(err);
+    throw new Error(err.message || 'An error occurred');
   }
 };
 
@@ -36,7 +42,6 @@ const signIn = async (formData) => {
     });
 
     const data = await res.json();
-
     if (data.err) {
       throw new Error(data.err);
     }
