@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReflectionsForm from '../ReflectionsForm/ReflectionsForm';
 
-const WishletForm = ({ props }) => {
+const WishletForm = (props) => {
     const initialState = {
         wishletTitle: '',
         wishletDescription: '',
@@ -36,7 +36,7 @@ const WishletForm = ({ props }) => {
     }
 
     const handleSaveReflection = (reflection) => {
-        const dataWithReflection = { ...formData, refelction }
+        const dataWithReflection = { ...formData, reflection }
         props.handleUpdateWishlet(dataWithReflection, props.selected._id)
     }
 
@@ -50,21 +50,24 @@ const WishletForm = ({ props }) => {
                     name="wishletTitle"
                     value={formData.wishletTitle}
                     onChange={handleChange}
+                    required
                 />
                 <label htmlFor="wishletDescription">Description</label>
-                <input
+                <textarea
                     id="wishletDescription"
                     type="text"
                     name="wishletDescription"
                     value={formData.wishletDescription}
                     onChange={handleChange}
-                />
+                    required>
+                </textarea>                    
                 <label htmlFor="wishletCategory">Category</label>
                 <select
                     id="wishletCategory"
                     name="wishletCategory"
                     value={formData.wishletCategory}
                     onChange={handleChange}
+                    required
                 >
                     <option value="">Select a category</option>
                     <option value="Travel">Travel</option>
@@ -95,7 +98,7 @@ const WishletForm = ({ props }) => {
                     onChange={handleChange}
                 />
                 <button type="submit">
-                    {props.selected ? 'Update Wish' : 'Make a New Wish'}
+                    {props.selected ? 'Update Wish' : 'Add Wish'}
                 </button>
             </form>
             {showReflectionsForm && (

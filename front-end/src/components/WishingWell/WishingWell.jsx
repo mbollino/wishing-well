@@ -1,4 +1,4 @@
-const wishingWell = ({ props }) => {
+const WishingWell = (props) => {
 
     return (
         <>
@@ -8,24 +8,28 @@ const wishingWell = ({ props }) => {
                     {!props.wishlets.length ? (
                         <h2>No wishes yet!</h2>
                     ) : (
-                        <ul>
-                            {props.wishlets.map((wishlet) =>
-                                <li key={wishlet._id}
-                                    style={{ cursor: 'pointer', color: '#232326' }}
-                                    onClick={() => props.handeSelect(pet)}
-                                >
-                                    {wishlet.wishletTitle}
-                                </li>
-                            )}
-                        </ul>
+                        <>
+                            <p>Your Wishes</p>
+                            <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
+                                {props.wishlets.map((wishlet) =>
+                                    <li
+                                        key={wishlet._id}
+                                        style={{ cursor: 'pointer', }}
+                                        onClick={() => props.handleSelect(wishlet)}
+                                    >
+                                        {wishlet.wishletTitle}
+                                    </li>
+                                )}
+                            </ul>
+                        </>
                     )}
                 </div>
                 <button onClick={props.handleFormView}>
-                    {prop.isFormOpen ? 'Close Form' : 'Make a New Wishlet'}
+                    {props.isFormOpen ? 'Close Form' : 'Make a New Wish'}
                 </button>
             </div>
         </>
     )
 }
 
-export default wishingWell
+export default WishingWell

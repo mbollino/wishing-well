@@ -1,123 +1,138 @@
-// import { useContext } from 'react';
-// import { Routes, Route } from 'react-router'; 
-// import NavBar from './components/NavBar/NavBar';
-// import Landing from './components/Landing/Landing';
-// import Dashboard from './components/Dashboard/Dashboard';
-// import { UserContext } from './contexts/UserContext';
-// import SignUpForm from './components/SignUpForm/SignUpForm';
-// import SignInForm from './components/SignInForm/SignInForm';
-// import { useState, useEffect } from 'react';
-// import * as wishletService from './services/wishletService';
-// import WishletDetail from './components/WishletDetail/WishletDetail';
-// import './App.css';
+import { useState, useEffect } from 'react';
+import WishletDetail from './components/WishletDetail/WishletDetail';
+import WishletForm from './components/WishletForm/WishletForm';
+import * as wishletService from './services/wishletServices';
+import WishingWell from './components/WishingWell/WishingWell';
+import './App.css';
 
-// const App = () => {
-//   const [wishlets, setWishlets] = useState([]);
-//   const [selected, setSelected] = useState([null]);
-//   const { user } = useContext(UserContext);
+function App() {
+  const [wishlets, setWishlets] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false)
 
-//   useEffect(() => {
-//     const fetchWishlets = async () => {
-//       try {
-//         const fetchedWishlets = await wishletService.index();
-//         if (fetchedWishlets.err) {
-//           throw new Error(fetchedWishlets.err);
-//         }
-//         setWishlets(fetchedWishlets);
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     fetchWishlets();
-//   }, []);
+  useEffect(() => {
+    const fetchWishlets = async () => {
+      try {
+        const fetchedWishlets = await wishletService.index();
+        if (fetchedWishlets.err) {
+          throw new Error(fetchedWishlets.err);
+        }
+        setWishlets(fetchedWishlets);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchWishlets();
+  }, []);
 
+  const handleSelect = (wishlet) => {
+    setSelected(wishlet)
+    setIsFormOpen(false)
+  }
 
-// const handleDeleteWishlet = async (wishletId) => {
-//   try {
-//     const deletedWishlet = await wishletService.delete(wishletId);
+  const handleFormView = (wishlet) => {
+    if (!wishlet._id) setSelected(null)
+    setIsFormOpen(!isFormOpen)
+  }
 
-//     if (deletedWishlet.err) {
-//       throw new Error(deletedWishlet.err);
-//     }
+  const handleCloseDetail = () => {
+    setSelected(null)
+  }
 
-//     setWishlets(wishlets.filter((pet) => pet._id !== deletedWishlet._id));
-//       setSelected(null);
-//       setIsFormOpen(false);
-//     } catch (err) {
-//       console.log(err);
-//   }
-// }
+  const handleAddWishlet = async (formData) => {
+    try {
+      const newWishlet = await wishletService.create(formData)
 
+      setWishlets(prev => [newWishlet, ...prev])
 
+      setIsFormOpen(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-//   return (
-//     <>
-//     <NavBar />
-//     <Routes>
-//         <Route path='/' element={user ? <Dashboard /> : <Landing /> } />  
-//         <Route path='/sign-up' element={<SignUpForm />} />
-//         <Route path="/sign-in" element={<SignInForm />} />
-//     </Routes>
-//     <h1> Hello, friend!</h1>
-//     <WishletDetail selected={selected} handleFormView={handleFormView} handleDeleteWishlet={handleDeleteWishlet} />
-//     </>
-//   )
- 
-// };
-//   //       const fetchedWishlets = await wishletService.index()
-//   //       if (fetchedWishlets.err) {
-//   //         throw new Error(fetchedWishlets.err)
-//   //       }
-//   //       setWishlets(fetchedWishlets)
-//   //     } catch (err) {
-//   //       console.log(err)
-//   //     }
-//   //   }
-//   //   fetchWishlets()
-//   // }, [])
+  const handleUpdateWishlet = async (formData, wishletId) => {
+    try {
+      const updatedWishlet = await wishletService.update(formData, wishletId)
+      if (updatedWishlet.err) {
+        throw new Error(updatedWishlet.err)
+      }
+      const updatedWishingWell = wishlets.map((wishlet) => (
+        wishlet._id !== updatedWishlet._id ? wishlet : updatedWishlet
+      ));
+      setWishlets(updatedWishingWell);
+      setSelected(updatedWishlet);
+      setIsFormOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-//   const handleFormView = (wishlet) => {
-//     if (!wishlet._id) setSelected(null)
-//     setIsFormOpen(!isFormOpen)
-//   }
+  const handleDeleteWishlet = async (wishletId) => {
+    try {
+      const deletedWishlet = await wishletService.deleteWishlet(wishletId);
 
-//   const handleAddWishlet = async (formData) => {
-//     try {
-//       const newWishlet = await wishletService.create(formData)
-//       setWishlets([newWishlet, ...wishlets])
-//       setIsFormOpen(false)
-//     } catch (error) {
-//       console.log(error)      
-//     }
-//   }
+      if (deletedWishlet.err) {
+        throw new Error(deletedWishlet.err);
+      }
 
-//   const handleUpdateWishlet = async (formData, wishletId) => {
-//     try {
-//       const updatedWishlet = await wishletService.update(formData, wishletId)
-//       if (updatedWishlet.err) {
-//         throw new Error(updatedWishlet.err)
-//       }
-//       const updatedWishingWell = wishlets.map((wishlet) => (
-//         wishlet._id !== updatedWishlet._id ? wishlet : updatedWishlet
-//       ));
-//       setWishlets(updatedWishingWell);
-//       setSelected(updatedWishlet);
-//       setIsFormOpen(false);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
+      setWishlets(wishlets.filter((wishlet) => wishlet._id !== deletedWishlet._id));
+      setSelected(null);
+      setIsFormOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-//   return (
-//     <>
-//       <WishingWell wishlets={wishlets} handleSelect={handleSelect} handleFormView={handleFormView} isFormOpen={isFormOpen} />
-//       {isFormOpen ? (
-//         <WishletForm handleAddWishlet={handleAddWishlet} selected={selected} handleUpdateWishlet={handleUpdateWishlet} />
-//       ) : (
-//         <WishletDetail selected={selected} handleFormView={handleFormView} />
-//       )}
-//     </>
-//   )
-// }
+  const handleSaveReflection = async (reflectionData) => {
+  if (!selected) return;
 
-// export default App
+  try {
+    const updatedWishlet = await wishletService.update({
+      ...selected,
+      wishletIsCompleted: true, 
+      reflection: {
+        notes: reflectionData.notes,
+        completedDate: reflectionData.completedDate,
+      },
+    }, selected._id);
+
+    if (updatedWishlet.err) throw new Error(updatedWishlet.err);
+
+    setWishlets(wishlets.map(w =>
+      w._id === updatedWishlet._id ? updatedWishlet : w
+    ));
+    setSelected(updatedWishlet);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+  return (
+    <>
+      <WishingWell
+        wishlets={wishlets}
+        handleSelect={handleSelect}
+        handleFormView={handleFormView}
+        isFormOpen={isFormOpen}
+      />
+      {isFormOpen ? (
+        <WishletForm
+          handleAddWishlet={handleAddWishlet}
+          selected={selected}
+          handleUpdateWishlet={handleUpdateWishlet}
+        />
+      ) : (
+        <WishletDetail
+          selected={selected}
+          handleFormView={handleFormView}
+          handleDeleteWishlet={handleDeleteWishlet}
+          handleCloseDetail={handleCloseDetail}
+          handleSaveReflection={handleSaveReflection}
+        />
+      )}
+    </>
+  )
+}
+
+export default App

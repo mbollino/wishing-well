@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { compile } = require("morgan");
 
 const reflectionSchema = mongoose.Schema({
   notes: {
@@ -49,3 +48,4 @@ const wishletSchema = mongoose.Schema({
 const Wishlet = mongoose.model("Wishlet", wishletSchema);
 
 module.exports = Wishlet;
+
