@@ -14,7 +14,7 @@ const WishingWell = (props) => {
                                 {props.wishlets.map((wishlet) =>
                                     <li
                                         key={wishlet._id}
-                                        style={{ cursor: 'pointer' }}
+                                        style={{ cursor: 'pointer', }}
                                         onClick={() => props.handleSelect(wishlet)}
                                     >
                                         {wishlet.wishletTitle}

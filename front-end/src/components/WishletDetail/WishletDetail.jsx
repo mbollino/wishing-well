@@ -3,7 +3,7 @@ import ReflectionsForm from '../ReflectionsForm/ReflectionsForm';
 
 
 const WishletDetail = (props) => {
-  const[isReflecting, setIsReflecting] = useState(false)
+  const [isReflecting, setIsReflecting] = useState(false)
 
   if (!props.selected) {
     return (
@@ -23,7 +23,7 @@ const WishletDetail = (props) => {
     `${targetDate.getUTCFullYear()}`
     : 'N/A';
 
-  const completedDate = props.selected.reflection.completedDate
+  const completedDate = props.selected.reflection?.completedDate
     ? new Date(props.selected.reflection.completedDate)
     : null;
 
@@ -35,11 +35,11 @@ const WishletDetail = (props) => {
 
   return isReflecting ? (
     <ReflectionsForm
-    onSave={(reflectionData) => {
-      props.handleSaveReflection(reflectionData)
-      setIsReflection(false)
-    }}
-    onClose={() => setIsReflecting(false)}
+      onSave={(reflectionData) => {
+        props.handleSaveReflection(reflectionData)
+        setIsReflection(false)
+      }}
+      onClose={() => setIsReflecting(false)}
     />
   ) : (
     <>
