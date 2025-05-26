@@ -42,6 +42,11 @@ const wishletSchema = mongoose.Schema({
   wishletTargetDate: {
     type: Date,
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   reflection: reflectionSchema,
 });
 

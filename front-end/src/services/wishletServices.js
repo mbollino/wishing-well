@@ -1,8 +1,14 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/wishlets`;
 
+const getToken = () => localStorage.getItem("token");
+
 const index = async () => {
   try {
-    const res = await fetch(`${BASE_URL}`);
+    const res = await fetch(BASE_URL, {
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
 
     const data = await res.json();
 
@@ -21,6 +27,7 @@ const create = async (formData) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer: ${getToken()}`,
       },
       body: JSON.stringify(formData),
     });
@@ -36,6 +43,7 @@ const update = async (formData, wishletId) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify(formData),
     });
@@ -49,6 +57,9 @@ const deleteWishlet = async (wishletId) => {
   try {
     const res = await fetch(`${BASE_URL}/${wishletId}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
     });
     return res.json();
   } catch (error) {
