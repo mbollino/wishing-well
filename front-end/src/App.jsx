@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import { Routes, Route, Navigate } from 'react-router'
+
+import { Routes, Route } from 'react-router
 import WishletDetail from './components/WishletDetail/WishletDetail';
 import WishletForm from './components/WishletForm/WishletForm';
 import * as wishletService from './services/wishletServices';

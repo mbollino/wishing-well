@@ -72,11 +72,6 @@ const WishletDetail = (props) => {
         <button className="delete" onClick={() => props.handleDeleteWishlet(props.selected._id)}>
           Delete Wish
         </button>
-        {!props.selected.reflection && (
-          <button className="reflection" onClick={() => setIsReflecting(true)}>
-            Add Reflection
-          </button>
-        )}
         <button className="close" onClick={props.handleCloseDetail}>
           Close Wish
         </button>
