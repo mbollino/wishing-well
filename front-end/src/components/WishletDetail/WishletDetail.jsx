@@ -15,7 +15,7 @@ const WishletDetail = (props) => {
     );
   }
 
-  if(!props.selected) {
+  if (!props.selected) {
     return null
   }
 
@@ -25,8 +25,8 @@ const WishletDetail = (props) => {
 
   const formattedTargetDate = targetDate
     ? `${String(targetDate.getUTCMonth() + 1).padStart(2, '0')}/` +
-      `${String(targetDate.getUTCDate()).padStart(2, '0')}/` +
-      `${targetDate.getUTCFullYear()}`
+    `${String(targetDate.getUTCDate()).padStart(2, '0')}/` +
+    `${targetDate.getUTCFullYear()}`
     : 'N/A';
 
   const completedDate = props.selected.reflection?.completedDate
@@ -35,8 +35,8 @@ const WishletDetail = (props) => {
 
   const formattedCompletedDate = completedDate
     ? `${String(completedDate.getUTCMonth() + 1).padStart(2, '0')}/` +
-      `${String(completedDate.getUTCDate()).padStart(2, '0')}/` +
-      `${completedDate.getUTCFullYear()}`
+    `${String(completedDate.getUTCDate()).padStart(2, '0')}/` +
+    `${completedDate.getUTCFullYear()}`
     : 'N/A';
 
   return isReflecting ? (

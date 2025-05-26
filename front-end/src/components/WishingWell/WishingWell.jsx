@@ -4,6 +4,7 @@ import { useContext } from 'react'
 const WishingWell = (props) => {
 
     const { user } = useContext(UserContext)
+
     return (
         <>
             <div className="wishing-well-container">
