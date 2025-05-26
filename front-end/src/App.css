@@ -382,12 +382,8 @@ body {
   text-align: center;
 }
 
-
 .sign-in-container input[type="text"],
-.sign-in-container input[type="password"],
-.sign-in-container input[type="date"],
-.sign-in-container textarea,
-.sign-in-container select {
+.sign-in-container input[type="password"] {
   width: 100%;
   max-width: 400px;
   padding: 10px;
@@ -396,6 +392,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  color: #333;
 }
 
 
@@ -424,13 +421,12 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   text-align: center;
+  color: #333;
 }
 
 
 .sign-up-container input[type="text"],
-.sign-up-container input[type="password"],
-.sign-up-container textarea,
-.sign-up-container select {
+.sign-up-container input[type="password"] {
   width: 100%;
   max-width: 400px;
   padding: 10px;
