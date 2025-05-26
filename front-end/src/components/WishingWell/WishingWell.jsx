@@ -2,6 +2,7 @@ import { UserContext } from "../../contexts/UserContext"
 import { useContext } from 'react'
 
 const WishingWell = (props) => {
+
     const { user } = useContext(UserContext)
 
     return (
@@ -43,6 +44,41 @@ const WishingWell = (props) => {
 }
 
 export default WishingWell
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
