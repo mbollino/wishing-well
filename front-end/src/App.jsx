@@ -11,6 +11,7 @@ import { UserContext } from './contexts/UserContext'
 
 import './App.css';
 
+
 function App() {
   const { user } = useContext(UserContext)
   const [wishlets, setWishlets] = useState([]);
@@ -30,7 +31,7 @@ function App() {
       }
     };
     fetchWishlets();
-  }, []);
+  }, [user]);
 
   const handleSelect = (wishlet) => {
     setSelected(wishlet)

@@ -4,7 +4,7 @@ const getToken = () => localStorage.getItem("token");
 
 const index = async () => {
   try {
-    const res = await fetch(`${BASE_URL}`, {
+    const res = await fetch(BASE_URL, {
       headers: {
         Authorization: `Bearer ${getToken()}`,
       },

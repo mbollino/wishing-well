@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import ReflectionsForm from '../ReflectionsForm/ReflectionsForm';
 import { UserContext } from "../../contexts/UserContext"
 import { useContext } from 'react'
@@ -9,10 +9,10 @@ const WishletDetail = (props) => {
 
   if (user && !props.selected) {
     return (
-      <div>
+      <div className="wishlet-detail-container">
         <p>No Details</p>
       </div>
-    )
+    );
   }
 
   if(!props.selected) {
@@ -25,8 +25,8 @@ const WishletDetail = (props) => {
 
   const formattedTargetDate = targetDate
     ? `${String(targetDate.getUTCMonth() + 1).padStart(2, '0')}/` +
-    `${String(targetDate.getUTCDate()).padStart(2, '0')}/` +
-    `${targetDate.getUTCFullYear()}`
+      `${String(targetDate.getUTCDate()).padStart(2, '0')}/` +
+      `${targetDate.getUTCFullYear()}`
     : 'N/A';
 
   const completedDate = props.selected.reflection?.completedDate
@@ -35,52 +35,54 @@ const WishletDetail = (props) => {
 
   const formattedCompletedDate = completedDate
     ? `${String(completedDate.getUTCMonth() + 1).padStart(2, '0')}/` +
-    `${String(completedDate.getUTCDate()).padStart(2, '0')}/` +
-    `${completedDate.getUTCFullYear()}`
+      `${String(completedDate.getUTCDate()).padStart(2, '0')}/` +
+      `${completedDate.getUTCFullYear()}`
     : 'N/A';
 
   return isReflecting ? (
     <ReflectionsForm
       onSave={(reflectionData) => {
-        props.handleSaveReflection(reflectionData)
-        setIsReflection(false)
+        props.handleSaveReflection(reflectionData);
+        setIsReflecting(false);
       }}
       onClose={() => setIsReflecting(false)}
     />
   ) : (
-    <>
+    <div className="wishlet-detail-container">
       <h2>{props.selected.wishletTitle}</h2>
-      <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
-        <li>Description: {props.selected.wishletDescription} </li>
-        <li>Category: {props.selected.wishletCategory} </li>
+      <ul>
+        <li>Description: {props.selected.wishletDescription}</li>
+        <li>Category: {props.selected.wishletCategory}</li>
         <li>Completed: {props.selected.wishletIsCompleted ? 'Yes' : 'No'}</li>
-        <li>Target Date: {formattedTargetDate || "N/A"}</li>
+        <li>Target Date: {formattedTargetDate || 'N/A'}</li>
         {props.selected.reflection && (
           <>
-            <li><strong>Reflection:</strong></li>
-            <li>Notes:{props.selected.reflection.notes}</li>
             <li>
-              Completed On: {formattedCompletedDate}
+              <strong>Reflection:</strong>
             </li>
+            <li>Notes: {props.selected.reflection.notes}</li>
+            <li>Completed On: {formattedCompletedDate}</li>
           </>
         )}
       </ul>
-      <button onClick={() => props.handleFormView(props.selected)}>
-        Edit Wish
-      </button>
-      <button onClick={() => props.handleDeleteWishlet(props.selected._id)}>
-        Delete Wish
-      </button>
-      {!props.selected.reflection && (
-        <button onClick={() => setIsReflection(true)}>
-          Add Reflection
+      <div className="wishlet-detail-buttons">
+        <button className="edit" onClick={() => props.handleFormView(props.selected)}>
+          Edit Wish
         </button>
-      )}
-      <button onClick={props.handleCloseDetail}>
-        Close Wish
-      </button>
-    </>
-  )
-}
+        <button className="delete" onClick={() => props.handleDeleteWishlet(props.selected._id)}>
+          Delete Wish
+        </button>
+        {!props.selected.reflection && (
+          <button className="reflection" onClick={() => setIsReflecting(true)}>
+            Add Reflection
+          </button>
+        )}
+        <button className="close" onClick={props.handleCloseDetail}>
+          Close Wish
+        </button>
+      </div>
+    </div>
+  );
+};
 
-export default WishletDetail
+export default WishletDetail;

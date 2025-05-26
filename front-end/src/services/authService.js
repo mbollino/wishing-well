@@ -18,7 +18,6 @@ const signUp = async (formData) => {
       localStorage.setItem('token', data.token);
       return JSON.parse(atob(data.token.split('.')[1])).payload;
     }
-
     throw new Error('Invalid response from server');
   } catch (err) {
     console.log(err);

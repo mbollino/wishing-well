@@ -6,13 +6,13 @@ const WishingWell = (props) => {
 
     return (
         <>
-            <div>
+            <div className="wishing-well-container">
                 <h1>Wishing Well</h1>
                 {!user ? (
                     <h3>Your bucket list, amplified</h3>
                 ) : (
                     <>
-                        <div>
+                        <div className="wish-list">
                             {!props.wishlets.length ? (
                                 <h2>No wishes yet!</h2>
                             ) : (
@@ -43,3 +43,22 @@ const WishingWell = (props) => {
 }
 
 export default WishingWell
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
