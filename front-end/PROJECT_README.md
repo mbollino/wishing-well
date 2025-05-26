@@ -3,6 +3,7 @@
 
 ## Screenshot
 
+![alt text](https://drive.google.com/file/d/1rk_AT0QY2lE8W7zSl-EsQOUnVdvGUDNb/view?usp=sharing)
 
 ## Description of app:
 Wishing well is an app to add bucket list items, or wishlets.  You can add them with or without a target completion date and categorize them.  Once completed, you can update them to mark as complete, which will generate a reflection form, where you can add notes about your experience & the day you completed the wish.
