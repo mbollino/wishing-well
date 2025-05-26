@@ -1,14 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import {Routes, Route} from 'react-router';
 import WishletDetail from './components/WishletDetail/WishletDetail';
 import WishletForm from './components/WishletForm/WishletForm';
 import * as wishletService from './services/wishletServices';
 import WishingWell from './components/WishingWell/WishingWell';
+import NavBar from './components/NavBar/NavBar';
+import SignUpForm from './components/SignUpForm/SignUpForm';
+import SignInForm from './components/SignInForm/SignInForm';
+import Landing from './components/Landing/Landing';
+// import Dashboard from './components/Dashboard/Dashboard';
+import { UserContext } from './contexts/UserContext';
 import './App.css';
+
 
 function App() {
   const [wishlets, setWishlets] = useState([]);
   const [selected, setSelected] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchWishlets = async () => {
@@ -110,6 +119,13 @@ function App() {
 
   return (
     <>
+    <NavBar />
+    <Routes> 
+    <Route path='/' element={user ? <Landing /> : <SignInForm />} />
+      <Route path='/sign-up' element={<SignUpForm />} />
+      <Route path="/sign-in" element={<SignInForm />} /> 
+    </Routes>
+
       <WishingWell
         wishlets={wishlets}
         handleSelect={handleSelect}
