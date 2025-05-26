@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 
-
 import { signIn } from '../../services/authService';
 
 import { UserContext } from '../../contexts/UserContext';
@@ -24,7 +23,6 @@ const SignInForm = () => {
     evt.preventDefault();
     try {
       const signedInUser = await signIn(formData);
-
       setUser(signedInUser);
       navigate('/');
     } catch (err) {

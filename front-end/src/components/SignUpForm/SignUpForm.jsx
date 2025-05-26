@@ -1,12 +1,13 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
-import { signUp } from '../../services/authService'
 
-import { UserContext } from '../../contexts/UserContext'
+import { signUp } from '../../services/authService';
+
+import { UserContext } from '../../contexts/UserContext';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     username: '',
@@ -24,11 +25,11 @@ const SignUpForm = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     try {
-        const newUser = await signUp(formData)
-        setUser(newUser)
-        navigate('/')
+      const newUser = await signUp(formData);
+      setUser(newUser);
+      navigate('/');
     } catch (err) {
-        console.log(err)
+      setMessage(err.message);
     }
   };
 

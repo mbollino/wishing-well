@@ -83,6 +83,13 @@ body {
   color: #333;
 }
 
+.wishing-well-container h3 {
+  margin: 0;
+  text-align: center;
+  color: #333;
+}
+
+
 /* Wish List Section styled with Flexbox and Grid */
 .wish-list {
   display: flex;
@@ -90,16 +97,13 @@ body {
   gap: 20px;
 }
 
-.wish-list p {
-  font-size: 1.3rem;
+.wish-list h2, p {
   text-align: center;
   color: #555;
 }
 
 /* Use Grid for displaying wish items responsively */
 .wish-list ul {
-  list-style: none;
-  padding: 0;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -108,6 +112,7 @@ body {
 
 .wish-list li {
   background-color: #e9ecef;
+  color: #333;
   padding: 15px;
   border-radius: 8px;
   font-size: 1.1rem;
