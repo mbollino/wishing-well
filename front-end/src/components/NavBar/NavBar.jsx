@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
 import './NavBar.css';
+import { useContext } from 'react'
+
 
 const NavBar = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext)
 
   const handleSignOut = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-  };
+    localStorage.removeItem('token')
+
+    setUser(null)
+  }
 
   return (
     <nav>
@@ -24,5 +26,6 @@ const NavBar = () => {
     </nav>
   );
 };
+
 
 export default NavBar;
