@@ -30,7 +30,7 @@ function App() {
       }
     };
     fetchWishlets();
-  }, [user]);
+  }, []);
 
   const handleSelect = (wishlet) => {
     setSelected(wishlet)
