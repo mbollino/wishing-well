@@ -458,3 +458,6 @@ body {
   background-color: #0056b3;
 }
 
+.sign-in-container, .sign-up-container h1, p {
+  color: #333;
+}
