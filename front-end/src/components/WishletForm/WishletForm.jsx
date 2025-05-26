@@ -8,13 +8,13 @@ const WishletForm = (props) => {
         wishletCategory: '',
         wishletIsCompleted: false,
         wishletTargetDate: '',
-    }
+    };
 
     const [formData, setFormData] = useState(
         props.selected ? props.selected : initialState
-    )
+    );
 
-    const [showReflectionsForm, setShowReflectionsForm] = useState(false)
+    const [showReflectionsForm, setShowReflectionsForm] = useState(false);
 
     const handleChange = (evt) => {
         const { name, value, type, checked } = evt.target;
@@ -25,23 +25,23 @@ const WishletForm = (props) => {
     };
 
     const handleSubmit = (evt) => {
-        evt.preventDefault()
+        evt.preventDefault();
         if (props.selected && formData.wishletIsCompleted) {
-            setShowReflectionsForm(true)
+            setShowReflectionsForm(true);
         } else if (props.selected) {
-            props.handleUpdateWishlet(formData, props.selected._id)
+            props.handleUpdateWishlet(formData, props.selected._id);
         } else {
-            props.handleAddWishlet(formData)
+            props.handleAddWishlet(formData);
         }
-    }
+    };
 
     const handleSaveReflection = (reflection) => {
-        const dataWithReflection = { ...formData, reflection }
-        props.handleUpdateWishlet(dataWithReflection, props.selected._id)
-    }
+        const dataWithReflection = { ...formData, reflection };
+        props.handleUpdateWishlet(dataWithReflection, props.selected._id);
+    };
 
     return (
-        <div>
+        <div className="wishlet-form-container">
             <form onSubmit={handleSubmit}>
                 <label htmlFor="wishletTitle">Title</label>
                 <input
@@ -59,8 +59,8 @@ const WishletForm = (props) => {
                     name="wishletDescription"
                     value={formData.wishletDescription}
                     onChange={handleChange}
-                    required>
-                </textarea>                    
+                    required
+                />
                 <label htmlFor="wishletCategory">Category</label>
                 <select
                     id="wishletCategory"
@@ -87,7 +87,12 @@ const WishletForm = (props) => {
                     type="checkbox"
                     name="wishletIsCompleted"
                     checked={formData.wishletIsCompleted}
-                    onChange={(evt) => setFormData({ ...formData, wishletIsCompleted: evt.target.checked })}
+                    onChange={(evt) =>
+                        setFormData({
+                            ...formData,
+                            wishletIsCompleted: evt.target.checked,
+                        })
+                    }
                 />
                 <label htmlFor="wishletTargetDate">Target Date</label>
                 <input
@@ -108,7 +113,7 @@ const WishletForm = (props) => {
                 />
             )}
         </div>
-    )
-}
+    );
+};
 
 export default WishletForm;
