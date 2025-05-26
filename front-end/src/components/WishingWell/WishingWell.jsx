@@ -2,7 +2,7 @@ import { UserContext } from "../../contexts/UserContext"
 import { useContext } from 'react'
 
 const WishingWell = (props) => {
-    const { user, setUser } = useContext(UserContext)
+    const { user } = useContext(UserContext)
 
     return (
         <>

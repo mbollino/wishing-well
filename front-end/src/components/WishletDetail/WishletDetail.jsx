@@ -15,7 +15,7 @@ const WishletDetail = (props) => {
     );
   }
 
-  if(!props.selected) {
+  if (!props.selected) {
     return null
   }
 
@@ -25,8 +25,8 @@ const WishletDetail = (props) => {
 
   const formattedTargetDate = targetDate
     ? `${String(targetDate.getUTCMonth() + 1).padStart(2, '0')}/` +
-      `${String(targetDate.getUTCDate()).padStart(2, '0')}/` +
-      `${targetDate.getUTCFullYear()}`
+    `${String(targetDate.getUTCDate()).padStart(2, '0')}/` +
+    `${targetDate.getUTCFullYear()}`
     : 'N/A';
 
   const completedDate = props.selected.reflection?.completedDate
@@ -35,8 +35,8 @@ const WishletDetail = (props) => {
 
   const formattedCompletedDate = completedDate
     ? `${String(completedDate.getUTCMonth() + 1).padStart(2, '0')}/` +
-      `${String(completedDate.getUTCDate()).padStart(2, '0')}/` +
-      `${completedDate.getUTCFullYear()}`
+    `${String(completedDate.getUTCDate()).padStart(2, '0')}/` +
+    `${completedDate.getUTCFullYear()}`
     : 'N/A';
 
   return isReflecting ? (
@@ -72,11 +72,6 @@ const WishletDetail = (props) => {
         <button className="delete" onClick={() => props.handleDeleteWishlet(props.selected._id)}>
           Delete Wish
         </button>
-        {!props.selected.reflection && (
-          <button className="reflection" onClick={() => setIsReflecting(true)}>
-            Add Reflection
-          </button>
-        )}
         <button className="close" onClick={props.handleCloseDetail}>
           Close Wish
         </button>
