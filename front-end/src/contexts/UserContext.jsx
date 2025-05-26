@@ -2,7 +2,6 @@ import { createContext, useState } from 'react';
 
 const UserContext = createContext();
 
-
 const getUserFromToken = (token) => {
     if (!token) return null
 
