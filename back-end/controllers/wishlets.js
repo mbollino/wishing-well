@@ -1,8 +1,9 @@
 const Wishlet = require("../models/wishlet");
 const express = require("express");
 const router = express.Router();
+const verifyToken = require("../middleware/verify-token");
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const createdWishlet = await Wishlet.create(req.body);
     res.status(201).json(createdWishlet);
@@ -11,7 +12,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const foundWishlets = await Wishlet.find();
     res.status(200).json(foundWishlets);
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:wishletId", async (req, res) => {
+router.get("/:wishletId", verifyToken, async (req, res) => {
   try {
     const foundWishlet = await Wishlet.findById(req.params.wishletId);
     if (!foundWishlet) {
@@ -37,7 +38,7 @@ router.get("/:wishletId", async (req, res) => {
   }
 });
 
-router.delete("/:wishletId", async (req, res) => {
+router.delete("/:wishletId", verifyToken, async (req, res) => {
   try {
     const deletedWishlet = await Wishlet.findByIdAndDelete(
       req.params.wishletId
@@ -56,7 +57,7 @@ router.delete("/:wishletId", async (req, res) => {
   }
 });
 
-router.put("/:wishletId", async (req, res) => {
+router.put("/:wishletId", verifyToken, async (req, res) => {
   try {
     const updatedWishlet = await Wishlet.findByIdAndUpdate(
       req.params.wishletId,

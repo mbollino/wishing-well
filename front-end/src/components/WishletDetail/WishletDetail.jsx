@@ -1,16 +1,22 @@
 import { useState } from 'react'
 import ReflectionsForm from '../ReflectionsForm/ReflectionsForm';
-
+import { UserContext } from "../../contexts/UserContext"
+import { useContext } from 'react'
 
 const WishletDetail = (props) => {
   const [isReflecting, setIsReflecting] = useState(false)
+  const { user } = useContext(UserContext)
 
-  if (!props.selected) {
+  if (user && !props.selected) {
     return (
       <div>
-        <h1>No Details</h1>
+        <p>No Details</p>
       </div>
     )
+  }
+
+  if(!props.selected) {
+    return null
   }
 
   const targetDate = props.selected.wishletTargetDate

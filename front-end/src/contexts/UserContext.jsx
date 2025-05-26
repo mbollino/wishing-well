@@ -1,23 +1,31 @@
-// import { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
-// const UserContext = createContext();
+const UserContext = createContext();
 
-// const getUserFromToken = () => {
-//     const token = localStorage.getItem('token')
-//     if(!token) return null
-//     return JSON.parse(atob(token.split('.')[1]))
-// }
+const getUserFromToken = (token) => {
+  if (!token) return null
 
-// function UserProvider({ children }) {
-//     const [user, setUser] = useState(getUserFromToken())
+  try {
+    const payload = token.split('.')[1]
+    const base64 = payload.replace(/-/g, '+').replace(/_/g, '/')
+    const decodedPayload = JSON.parse(atob(base64))
+    return decodedPayload
+  } catch (err) {
+    console.error("Invaled token", err)
+    return null
+  }
+};
 
-//     const value = { user, setUser }
+function UserProvider({ children }) {
+  const [user, setUser] = useState(getUserFromToken());
 
-//   return (
-//     <UserContext.Provider value={value}>
-//       {children}
-//     </UserContext.Provider>
-//   );
-// };
+  const value = { user, setUser };
 
-// export { UserProvider, UserContext };
+  return (
+    <UserContext.Provider value={value}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+
+export { UserProvider, UserContext };

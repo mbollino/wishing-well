@@ -1,11 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router'
 import WishletDetail from './components/WishletDetail/WishletDetail';
 import WishletForm from './components/WishletForm/WishletForm';
 import * as wishletService from './services/wishletServices';
 import WishingWell from './components/WishingWell/WishingWell';
+import NavBar from './components/NavBar/NavBar';
+import SignUpForm from './components/SignUpForm/SignUpForm';
+import SignInForm from './components/SignInForm/SignInForm';
+import { UserContext } from './contexts/UserContext'
+
 import './App.css';
 
 function App() {
+  const { user } = useContext(UserContext)
   const [wishlets, setWishlets] = useState([]);
   const [selected, setSelected] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false)
@@ -85,37 +92,45 @@ function App() {
   }
 
   const handleSaveReflection = async (reflectionData) => {
-  if (!selected) return;
+    if (!selected) return;
 
-  try {
-    const updatedWishlet = await wishletService.update({
-      ...selected,
-      wishletIsCompleted: true, 
-      reflection: {
-        notes: reflectionData.notes,
-        completedDate: reflectionData.completedDate,
-      },
-    }, selected._id);
+    try {
+      const updatedWishlet = await wishletService.update({
+        ...selected,
+        wishletIsCompleted: true,
+        reflection: {
+          notes: reflectionData.notes,
+          completedDate: reflectionData.completedDate,
+        },
+      }, selected._id);
 
-    if (updatedWishlet.err) throw new Error(updatedWishlet.err);
+      if (updatedWishlet.err) throw new Error(updatedWishlet.err);
 
-    setWishlets(wishlets.map(w =>
-      w._id === updatedWishlet._id ? updatedWishlet : w
-    ));
-    setSelected(updatedWishlet);
-  } catch (err) {
-    console.log(err);
-  }
-};
+      setWishlets(wishlets.map(w =>
+        w._id === updatedWishlet._id ? updatedWishlet : w
+      ));
+      setSelected(updatedWishlet);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
-      <WishingWell
-        wishlets={wishlets}
-        handleSelect={handleSelect}
-        handleFormView={handleFormView}
-        isFormOpen={isFormOpen}
-      />
+      <NavBar />
+      <Routes>
+        <Route path='/' element={
+          <WishingWell
+            wishlets={wishlets}
+            handleSelect={handleSelect}
+            handleFormView={handleFormView}
+            isFormOpen={isFormOpen}
+          />
+        }
+        />
+        <Route path='/sign-up' element={<SignUpForm />} />
+        <Route path='/sign-in' element={<SignInForm />} />
+      </Routes>
       {isFormOpen ? (
         <WishletForm
           handleAddWishlet={handleAddWishlet}
