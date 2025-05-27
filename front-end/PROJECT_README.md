@@ -1,6 +1,8 @@
 # Wishing Well
 ## Your bucket list, amplified
 
+[Wishing Well](https://wishing-well.netlify.app/)
+
 ## Screenshot
 
 ![alt text](https://drive.google.com/file/d/1rk_AT0QY2lE8W7zSl-EsQOUnVdvGUDNb/view?usp=sharing)
